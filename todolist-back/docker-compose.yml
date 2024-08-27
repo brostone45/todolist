@@ -1,0 +1,25 @@
+version: '3.9'
+
+services:
+  mysql:
+    image: mysql
+    environment:
+      - MYSQL_DATABASE=todolist
+      #      - MYSQL_USER=root
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_PORT=3306
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - PMA_HOST=mysql
+    ports:
+      - "8080:80"
+
+volumes:
+  mysql_data:
