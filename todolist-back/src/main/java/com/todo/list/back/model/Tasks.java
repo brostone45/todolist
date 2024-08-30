@@ -2,6 +2,7 @@ package com.todo.list.back.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -17,6 +18,7 @@ public class Tasks {
     private UUID id;
     private String title;
     private String description;
+    @CreationTimestamp
     private LocalDateTime time;
     private String state;
     private boolean disable;
