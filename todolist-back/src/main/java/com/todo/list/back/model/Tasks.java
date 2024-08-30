@@ -2,8 +2,10 @@ package com.todo.list.back.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Entity
 @Table(name = "tasks")
@@ -12,11 +14,22 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class Tasks {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
     private String title;
     private String description;
-    private LocalDate time;
+    @CreationTimestamp
+    private LocalDateTime time;
     private String state;
-    private Boolean disable;
+    private boolean disable;
+
+    // Relación ManyToOne con Users
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private Users user;
+
+    // Relación ManyToOne con Categories
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Categories category;
 }
