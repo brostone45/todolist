@@ -16,8 +16,8 @@ public class UsersServiceImplement implements IUsersService {
     private IUsersRepository usersRepository;
 
     @Override
-    public void save(Users users) {
-        usersRepository.save(users);
+    public Users save(Users users) {
+        return usersRepository.save(users);
     }
 
     @Override
