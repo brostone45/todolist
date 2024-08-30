@@ -1,9 +1,9 @@
 package com.todo.list.back.repository;
 
+import com.todo.list.back.model.Tasks;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.scheduling.config.Task;
 
 import java.util.UUID;
 
-public interface ITasksRepository extends JpaRepository<Task, UUID> {
+public interface ITasksRepository extends JpaRepository<Tasks, UUID> {
 }
