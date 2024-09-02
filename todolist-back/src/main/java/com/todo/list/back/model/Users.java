@@ -18,6 +18,7 @@ public class Users {
     private String username;
     private String password;
     private String email;
+    private String avatar;
 
     // Relación OneToMany con Tasks
     @OneToMany(mappedBy = "user")
