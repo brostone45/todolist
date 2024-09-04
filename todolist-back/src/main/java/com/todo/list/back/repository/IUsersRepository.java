@@ -1,5 +1,6 @@
 package com.todo.list.back.repository;
 
+import com.todo.list.back.dto.UsersDto;
 import com.todo.list.back.model.Users;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -11,4 +12,6 @@ public interface IUsersRepository extends JpaRepository<Users ,UUID> {
     Optional<Users> findById(UUID id);
 
     void deleteById(UUID id);
+
+    Optional<Users> findByEmailAndAndPassword(String username, String password);
 }

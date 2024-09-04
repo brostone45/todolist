@@ -1,5 +1,6 @@
 package com.todo.list.back.service;
 
+import com.todo.list.back.dto.UsersDto;
 import com.todo.list.back.model.Users;
 
 import java.util.List;
@@ -12,4 +13,5 @@ public interface IUsersService {
     List<Users> findAll();
     void deleteByid(UUID id);
     Optional<Users> get(Integer id);
+    Optional<UsersDto> findByEmailAndAndPassword(String username, String password);
 }

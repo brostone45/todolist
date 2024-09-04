@@ -1,5 +1,6 @@
 package com.todo.list.back.service;
 
+import com.todo.list.back.dto.UsersDto;
 import com.todo.list.back.model.Users;
 import com.todo.list.back.repository.IUsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class UsersServiceImplement implements IUsersService {
@@ -39,4 +41,21 @@ public class UsersServiceImplement implements IUsersService {
     public Optional<Users> get(Integer id) {
         return Optional.empty();
     }
+
+    @Override
+    public Optional<UsersDto> findByEmailAndAndPassword(String username, String password) {
+        Optional<Users> findUser =  usersRepository.findByEmailAndAndPassword(username, password);
+        return findUser.map(this::mapToUsersDto);
+    }
+
+    private UsersDto mapToUsersDto(Users users) {
+        UsersDto userDto = UsersDto.builder()
+                .email(users.getEmail())
+                .password(users.getPassword())
+                .username(users.getUsername())
+                .build();
+
+        return userDto;
+    }
+
 }
