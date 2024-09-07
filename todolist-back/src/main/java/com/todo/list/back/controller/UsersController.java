@@ -4,7 +4,10 @@ import com.todo.list.back.dto.UsersDto;
 import com.todo.list.back.model.Users;
 import com.todo.list.back.service.IUsersService;
 import com.todo.list.back.service.UploadFileService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,21 +26,21 @@ public class UsersController {
     @Autowired
     private UploadFileService upload;
 
-    @PostMapping("/add")
+    @PostMapping("/register")
     public Users usersAdd(@RequestBody Users users) throws Exception {
         String defaultImages = "default.jpg";
         users.setAvatar(defaultImages);
         return usersService.save(users);
     }
 
-    @PostMapping("/access")
-    public String usersLogIn(@RequestBody Users users) {
+    @PostMapping("/signUp")
+    public ResponseEntity<Optional<UsersDto>> usersLogIn(@RequestBody Users users) {
         Optional<UsersDto> user = usersService.findByEmailAndAndPassword(users.getEmail(), users.getPassword());
 
         if(user.isPresent()) {
-            return "redirect:/users";
+            return new ResponseEntity<>(user, HttpStatus.CREATED);
         } else {
-            return "";
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }
