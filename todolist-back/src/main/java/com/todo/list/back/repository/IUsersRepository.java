@@ -14,4 +14,6 @@ public interface IUsersRepository extends JpaRepository<Users ,UUID> {
     void deleteById(UUID id);
 
     Optional<Users> findByEmailAndAndPassword(String username, String password);
+
+    Optional<Users> findByEmail(String email);
 }

@@ -5,6 +5,7 @@ import com.todo.list.back.model.Users;
 import com.todo.list.back.service.IUsersService;
 import com.todo.list.back.service.UploadFileService;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/users")
 public class UsersController {
 
