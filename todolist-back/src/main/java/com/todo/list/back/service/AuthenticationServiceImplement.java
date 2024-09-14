@@ -1,8 +1,6 @@
 package com.todo.list.back.service;
 
-import com.todo.list.back.dto.JwtAuthenticationResponse;
-import com.todo.list.back.dto.SiginRequest;
-import com.todo.list.back.dto.SignUpRequest;
+import com.todo.list.back.dto.*;
 import com.todo.list.back.model.Users;
 import com.todo.list.back.repository.IUsersRepository;
 import lombok.RequiredArgsConstructor;
@@ -26,7 +24,7 @@ public class AuthenticationServiceImplement implements IAuthenticationService {
     private final JWTService jwtService;
 
     @Override
-    public Users signUp(SignUpRequest signUpRequest) {
+    public Users signUp(UsersDto signUpRequest) {
         Users user = new Users();
 
         user.setEmail(signUpRequest.getEmail());
@@ -35,7 +33,7 @@ public class AuthenticationServiceImplement implements IAuthenticationService {
     }
 
     @Override
-    public JwtAuthenticationResponse siginin(SiginRequest siginRequest) {
+    public JwtAuthenticationResponse siginin(UsersDto siginRequest) {
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(siginRequest.getEmail(),
                 siginRequest.getPassword());
 
@@ -50,4 +48,23 @@ public class AuthenticationServiceImplement implements IAuthenticationService {
         jwtAuthenticationResponse.setRefreshToken(refreshToken);
         return jwtAuthenticationResponse;
     }
+
+    @Override
+    public JwtAuthenticationResponse refreshToken(RefreshTokenRequest refreshTokenRequest) {
+        String userEmail = jwtService.extractUsername(refreshTokenRequest.getToken());
+
+        Users user = userRepository.findByEmail(userEmail).orElseThrow();
+        if( jwtService.isTokenValid(refreshTokenRequest.getToken(), user) ){
+            var jwt = jwtService.generateToken(user);
+
+            JwtAuthenticationResponse jwtAuthenticationResponse = new JwtAuthenticationResponse();
+            jwtAuthenticationResponse.setToken(jwt);
+            jwtAuthenticationResponse.setRefreshToken(refreshTokenRequest.getToken());
+            return jwtAuthenticationResponse;
+        }
+
+        return null;
+    }
+
+
 }

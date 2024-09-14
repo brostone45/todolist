@@ -50,9 +50,13 @@ public class JWTServiceImplement implements JWTService {
 
     @Override
     public Boolean isTokenValid(String token, UserDetails userDetails) {
-        return null;
+        final String username = extractUsername(token);
+        return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }
 
+    public boolean isTokenExpired(String token) {
+        return extractClaim(token, Claims::getExpiration) .before(new Date());
+    }
     private Key getSignInKey() {
         byte[] key = Decoders.BASE64.decode("g5jK8zE2aY1XqRw9LsNp3vT0F7dUJ4Hl6VbM1WQrST8BcZkJp2");
         return Keys.hmacShaKeyFor(key);
