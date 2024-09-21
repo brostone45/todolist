@@ -10,4 +10,6 @@ public interface IAuthenticationService {
     AuthResponse register (RegisterRequest registerRequest);
 
     AuthResponse authenticate (AuthenticationRequest authenticationRequest);
+
+    AuthResponse refreshAccessToken (String refreshToken);
 }

@@ -10,6 +10,8 @@ import com.todo.list.back.repository.IUsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -39,9 +41,11 @@ public class AuthenticationServiceImplement implements IAuthenticationService {
         user.setAvatar(defaultImages);
         user.setRole(Role.USER);
         usersRepository.save(user);
-        var jwtToken = jwtService.generateToken(user);
 
-        return AuthResponse.builder().token(jwtToken).build();
+        var accessToken = jwtService.generateAccessToken(user);
+        var refreshToken = jwtService.generateRefreshToken(user);
+
+        return AuthResponse.builder().accessToken(accessToken).refreshToken(refreshToken).build();
     }
 
     @Override
@@ -53,7 +57,25 @@ public class AuthenticationServiceImplement implements IAuthenticationService {
                 )
         );
         var user = usersRepository.findUsersByEmail(authenticationRequest.getEmail()).orElseThrow();
-        var jwt = jwtService.generateToken(user);
-        return AuthResponse.builder().token(jwt).build();
+
+        var accessToken = jwtService.generateAccessToken(user);
+        var refreshToken = jwtService.generateRefreshToken(user);
+
+        return AuthResponse.builder().accessToken(accessToken).refreshToken(refreshToken).build();
+    }
+
+    @Override
+    public AuthResponse refreshAccessToken(String refreshToken) {
+        if (jwtService.validateToken(refreshToken, null)){
+            String username = jwtService.getUsername(refreshToken);
+            UserDetails userDetails = usersRepository.findUsersByEmail(username)
+                    .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
+            String newAccessToken = jwtService.generateAccessToken(userDetails);
+
+            return AuthResponse.builder().accessToken(newAccessToken).refreshToken(refreshToken).build();
+        } else {
+            throw new IllegalStateException("Invalid refresh token");
+        }
     }
 }

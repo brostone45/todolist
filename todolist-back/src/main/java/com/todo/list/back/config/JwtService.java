@@ -16,11 +16,19 @@ import java.util.function.Function;
 @Service
 public class JwtService {
 
-    public String generateToken(UserDetails userDetails) {
+    public String generateAccessToken(UserDetails userDetails) {
+        return generateToken(userDetails, 1000*60*15); // 15 minutes
+    }
+
+    public String generateRefreshToken(UserDetails userDetails) {
+        return generateToken(userDetails, 1000*60*60*24*7); // 7 days
+    }
+
+    public String generateToken(UserDetails userDetails, long expirationTime) {
         return Jwts.builder()
                 .subject(userDetails.getUsername())
                 .issuedAt(new Date(System.currentTimeMillis()))
-                .expiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 + 24))
+                .expiration(new Date(System.currentTimeMillis() + expirationTime))
                 .signWith(getSignInKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
