@@ -1,6 +1,6 @@
 package com.todo.list.back.service;
 
-import com.todo.list.back.dto.UsersDto;
+import com.todo.list.back.dto.RegisterResponse;
 import com.todo.list.back.model.Users;
 import com.todo.list.back.repository.IUsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,20 +44,21 @@ public class UsersServiceImplement implements IUsersService {
     }
 
     @Override
-    public Optional<UsersDto> findByEmailAndAndPassword(String username, String password) {
-        Optional<Users> findUser =  usersRepository.findByEmailAndPassword(username, password);
-        return findUser.map(this::mapToUsersDto);
+    public Optional<RegisterResponse> findByEmailAndAndPassword(String username, String password) {
+//        Optional<Users> findUser =  usersRepository.findByEmailAndPassword(username, password);
+//        return findUser.map(this::mapToUsersDto);
+        return Optional.empty();
     }
 
-    private UsersDto mapToUsersDto(Users users) {
-        UsersDto userDto = UsersDto.builder()
-                .email(users.getEmail())
-                .password(users.getPassword())
-                .username(users.getUsername())
-                .build();
-
-        return userDto;
-    }
+//    private registerResponse mapToUsersDto(Users users) {
+//        registerResponse userDto = registerResponse.builder()
+//                .email(users.getEmail())
+//                .password(users.getPassword())
+//                .username(users.getUsername())
+//                .build();
+//
+//        return userDto;
+//    }
 
     @Override
     public UserDetailsService userDetailsService() {

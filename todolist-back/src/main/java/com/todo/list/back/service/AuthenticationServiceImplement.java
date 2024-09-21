@@ -66,7 +66,7 @@ public class AuthenticationServiceImplement implements IAuthenticationService {
 
     @Override
     public AuthResponse refreshAccessToken(String refreshToken) {
-        if (jwtService.validateToken(refreshToken, null)){
+        if (jwtService.validateRefreshToken(refreshToken, null)){
             String username = jwtService.getUsername(refreshToken);
             UserDetails userDetails = usersRepository.findUsersByEmail(username)
                     .orElseThrow(() -> new UsernameNotFoundException("User not found"));

@@ -60,6 +60,11 @@ public class JwtService {
         return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }
 
+    public boolean validateRefreshToken(String token, UserDetails userDetails) {
+        final String username = getUsername(token);
+        return (username != null && !isTokenExpired(token));
+    }
+
     private boolean isTokenExpired(String token) {
         return getClaim(token, Claims::getExpiration).before(new Date());
     }

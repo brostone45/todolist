@@ -1,6 +1,6 @@
 package com.todo.list.back.controller;
 
-import com.todo.list.back.dto.UsersDto;
+import com.todo.list.back.dto.RegisterResponse;
 import com.todo.list.back.model.Users;
 import com.todo.list.back.service.IUsersService;
 import com.todo.list.back.service.UploadFileService;
@@ -29,8 +29,8 @@ public class UsersController {
     }
 
     @PostMapping("/signUp")
-    public ResponseEntity<Optional<UsersDto>> usersLogIn(@RequestBody Users users) {
-        Optional<UsersDto> user = usersService.findByEmailAndAndPassword(users.getEmail(), users.getPassword());
+    public ResponseEntity<Optional<RegisterResponse>> usersLogIn(@RequestBody Users users) {
+        Optional<RegisterResponse> user = usersService.findByEmailAndAndPassword(users.getEmail(), users.getPassword());
 
         if(user.isPresent()) {
             return new ResponseEntity<>(user, HttpStatus.CREATED);
