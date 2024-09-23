@@ -1,5 +1,7 @@
 import { routes } from "./routes"
 
+const app = document.getElementById('app')
+
 export function router() {
   const currentRoute = getCurrentRoute()
 
@@ -7,7 +9,10 @@ export function router() {
   
   if (!route) {
     location.pathname = '/'
-  } 
+  }
+
+  const component = route.component()
+  app.appendChild(component)
 }
 
 function getCurrentRoute() {

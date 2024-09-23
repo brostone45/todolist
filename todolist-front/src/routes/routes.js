@@ -1,3 +1,5 @@
+import { SignUp } from "../modules/auth/pages/signup/signup";
+
 export const routes = [
   {
     path: '/',
@@ -5,6 +7,6 @@ export const routes = [
   },
   {
     path: 'login',
-    component: 'login'
+    component: SignUp
   }
 ]
