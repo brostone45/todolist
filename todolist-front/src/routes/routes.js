@@ -1,4 +1,4 @@
-import { SignUp } from "../modules/auth/pages/signup/signup";
+import { SignUp } from "../modules/auth/pages/signup/signup/signup";
 
 export const routes = [
   {
@@ -6,7 +6,7 @@ export const routes = [
     component: 'home'
   },
   {
-    path: 'login',
+    path: 'signup',
     component: SignUp
   }
 ]
