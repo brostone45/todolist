@@ -1,0 +1,27 @@
+.input-container {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+.input-container label {
+  margin-bottom: 0.5rem;
+  color: var(--gray-light-color);
+}
+
+.input-container input {
+  padding: 0.5rem;
+  border: 1px solid var(--gray-color);
+  border-radius: 4px;
+  background-color: transparent;
+  color: var(--white);
+}
+
+.input-container input:focus {
+  border: 2px solid var(--primary-color);
+}
+
+.input-container input:focus-visible {
+  border: 1px solid var(--primary-color);
+  outline: 1px solid var(--primary-color);
+}
