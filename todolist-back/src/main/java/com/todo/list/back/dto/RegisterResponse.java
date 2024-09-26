@@ -3,11 +3,9 @@ package com.todo.list.back.dto;
 import lombok.Builder;
 import lombok.Data;
 
-import java.util.UUID;
-
 @Data
 @Builder
-public class UsersDto {
+public class RegisterResponse {
 
     private String username;
     private String password;

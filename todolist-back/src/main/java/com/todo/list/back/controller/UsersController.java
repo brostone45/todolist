@@ -1,18 +1,13 @@
 package com.todo.list.back.controller;
 
-import com.todo.list.back.dto.UsersDto;
+import com.todo.list.back.dto.RegisterResponse;
 import com.todo.list.back.model.Users;
 import com.todo.list.back.service.IUsersService;
 import com.todo.list.back.service.UploadFileService;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
@@ -34,13 +29,23 @@ public class UsersController {
     }
 
     @PostMapping("/signUp")
-    public ResponseEntity<Optional<UsersDto>> usersLogIn(@RequestBody Users users) {
-        Optional<UsersDto> user = usersService.findByEmailAndAndPassword(users.getEmail(), users.getPassword());
+    public ResponseEntity<Optional<RegisterResponse>> usersLogIn(@RequestBody Users users) {
+        Optional<RegisterResponse> user = usersService.findByEmailAndAndPassword(users.getEmail(), users.getPassword());
 
         if(user.isPresent()) {
             return new ResponseEntity<>(user, HttpStatus.CREATED);
         } else {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    @GetMapping("/sayHello")
+    public String sayHello() {
+        return "Hello World";
+    }
+
+    @GetMapping("/sayHello2")
+    public String sayHello2() {
+        return "Hello World2";
     }
 }
