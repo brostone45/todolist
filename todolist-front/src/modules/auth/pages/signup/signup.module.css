@@ -1,4 +1,5 @@
-.title-section {
-  margin-bottom: 2rem;
-  text-align: center;
+.sign-up {
+  width: 100%;
+  max-width: 425px;
+  margin-inline: auto;
 }
