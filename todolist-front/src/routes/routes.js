@@ -1,4 +1,4 @@
-import { SignUp } from "../modules/auth/pages/signup/signup/signup";
+import { SignUp } from "../modules/auth/pages/signup/signup";
 
 export const routes = [
   {

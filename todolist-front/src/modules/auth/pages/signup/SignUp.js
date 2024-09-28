@@ -1,6 +1,6 @@
 import styles from './signup.module.css'
-import { Input } from "../../../../shared/components/input/input"
-import { Button } from '../../../../shared/components/button/button'
+import { Input } from "../../../shared/components/input/input"
+import { Button } from '../../../shared/components/button/button'
 
 const inputs = [
   {
