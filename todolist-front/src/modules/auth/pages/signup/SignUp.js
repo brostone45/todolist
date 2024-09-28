@@ -30,7 +30,8 @@ export function SignUp() {
   container.classList.add(styles['sign-up'])
 
   const titleSection = Title()
-  const formComponent = Form({inputs, buttonText: 'Sign Up'})
+  const formComponent = Form({ inputs, buttonText: 'Sign Up', buttonType: 'submit' })
+  formComponent.addEventListener('submit', () => { console.log('submit') }, false)
 
   container.appendChild(titleSection)
   container.appendChild(formComponent)

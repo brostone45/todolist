@@ -1,7 +1,7 @@
 import { Input } from "../input/input"
 import { Button } from "../button/button"
 
-export function Form({ inputs, buttonText }) {
+export function Form({ inputs, buttonText, buttonType }) {
   const form = document.createElement('form')
   form.className = 'form'
 
@@ -10,7 +10,7 @@ export function Form({ inputs, buttonText }) {
     form.appendChild(inputComponent)
   })
 
-  const buttonComponent = Button({ text: buttonText })
+  const buttonComponent = Button({ text: buttonText, type: buttonType })
   form.appendChild(buttonComponent)
 
   return form
