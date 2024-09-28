@@ -1,6 +1,6 @@
 import styles from './input.module.css'
 
-export function generateInputComponent({ labelText, placeholder, type }) {
+export function Input({ labelText, placeholder, type }) {
   const container = document.createElement('div')
   container.className = styles['input-container']
 

@@ -1,5 +1,5 @@
 import styles from './signup.module.css'
-import { generateInputComponent } from "../../../../shared/components/input/input"
+import { Input } from "../../../../shared/components/input/input"
 import { Button } from '../../../../shared/components/button/button'
 
 const inputs = [
@@ -60,7 +60,7 @@ function generateFormComponent(inputs) {
   form.className = 'form'
 
   inputs.forEach(input => {
-    const inputComponent = generateInputComponent(input)
+    const inputComponent = Input(input)
     form.appendChild(inputComponent)
   })
 
