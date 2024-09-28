@@ -1,6 +1,6 @@
 import styles from './signup.module.css'
 import { generateInputComponent } from "../../../../shared/components/input/input"
-import { generateButtonComponent } from '../../../../shared/components/button/button'
+import { Button } from '../../../../shared/components/button/button'
 
 const inputs = [
   {
@@ -64,8 +64,8 @@ function generateFormComponent(inputs) {
     form.appendChild(inputComponent)
   })
 
-  const button = generateButtonComponent({ text: 'Sign Up' })
-  form.appendChild(button)
+  const buttonComponent = Button({ text: 'Sign Up' })
+  form.appendChild(buttonComponent)
 
   return form
 }

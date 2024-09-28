@@ -1,8 +1,9 @@
 .button {
-  display: inline-block;
+  display: block;
   width: 100%;
   max-width: 375px;
-  margin-top: 1rem;
+  margin-top: 1.5rem;
+  margin-inline: auto;
   padding: .5rem 1rem;
   font-size: 1rem;
   font-weight: 500;
