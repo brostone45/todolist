@@ -7,21 +7,25 @@ const inputs = [
     labelText: 'Name',
     placeholder: 'John Doe',
     type: 'text',
+    validations: ['notEmpty'],
   },
   {
     labelText: 'Email',
     placeholder: 'your@email.com',
     type: 'email',
+    validations: ['notEmpty', 'email'],
   },
   {
     labelText: 'Password',
     placeholder: '********',
     type: 'password',
+    validations: ['notEmpty'],
   },
   {
     labelText: 'Confirm Password',
     placeholder: '********',
     type: 'password',
+    validations: ['notEmpty'],
   },
 ]
 
