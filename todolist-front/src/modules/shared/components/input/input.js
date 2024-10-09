@@ -26,6 +26,11 @@ function generateInputElement({ placeholder, type, validations = [] }) {
   input.className = 'input'
   input.placeholder = placeholder
   input.type = type
+  
+  if (type === 'email') {
+    input.pattern = '^[a-zA-Z0-9._%+\\-]+@[a-zA-Z0-9.\\-]+\\.[a-zA-Z]{2,}$'
+  }
+
   let inputChange = false
 
   input.addEventListener('change', (event) => {
@@ -62,6 +67,7 @@ function handleWarning(input, valid) {
 
   if (hasWarning && !valid.empty && !valid.invalidEmail) {
     hasWarning.remove()
+    input.required = false
   }
 
   if (valid.empty) {
@@ -73,6 +79,7 @@ function handleWarning(input, valid) {
   if (warningText !== '' && !hasWarning) {
     const warning = generateWarningElement({ warningText })
     input.parentElement.appendChild(warning)
+    input.required = true
   }
 }
 
