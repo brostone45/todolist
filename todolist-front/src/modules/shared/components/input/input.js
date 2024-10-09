@@ -79,14 +79,14 @@ function handleWarning(input, valid) {
 function inputValidations(input, validations) {
   const [notEmpty, email] = validations
   const isValid = {}
-  const emailRegex = '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
 
   if (notEmpty) {
     isValid.empty = input.value.trim() !== '' ? false : true
   }
 
   if (email) {
-    isValid.invalidEmail = input.value.match(emailRegex) ? false : true
+    isValid.invalidEmail = emailRegex.test(input.value) ? false : true
   }
 
   return isValid
