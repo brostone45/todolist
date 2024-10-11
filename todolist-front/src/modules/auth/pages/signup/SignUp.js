@@ -1,6 +1,7 @@
 import styles from './signup.module.css'
 import { Form } from '../../../shared/components/form/form'
 import { Title } from '../../components/title/title'
+import { handleWarning, inputValidations } from '../../../shared/components/input/input'
 
 const inputs = [
   {
@@ -39,10 +40,33 @@ export function SignUp() {
 
   const titleSection = Title()
   const formComponent = Form({ inputs, buttonText: 'Sign Up', buttonType: 'submit' })
-  formComponent.addEventListener('submit', () => { console.log('submit') }, false)
+  formComponent.addEventListener('submit', (e) => {
+    e.preventDefault()
+    submitForm({ e, formInputs: inputs })
+  }, false)
 
   container.appendChild(titleSection)
   container.appendChild(formComponent)
 
   return container
+}
+
+function submitForm({e, formInputs}) {
+  const formComponent = e.target
+  const formValues = {}
+
+  const inputs = formComponent.querySelectorAll('input')
+  inputs.forEach(input => {
+    const validations = formInputs.find(formInput => formInput.name === input.name).validations
+    const isValid = inputValidations(input, validations)
+    handleWarning(input, isValid)
+
+    if (!isValid.empty && !isValid.invalidEmail) {
+      formValues[input.name] = input.value
+    }
+  })
+
+  if (Object.keys(formValues).length === formInputs.length) {
+    console.log('Form values:', formValues)
+  }
 }
