@@ -57,23 +57,23 @@ function generateWarningElement({ warningText }) {
 }
 
 function validateInput({ input, validations }) {
-  const valid = inputValidations(input, validations)
+  const validationStatus = inputValidations(input, validations)
   
-  handleWarning(input, valid)
+  handleWarning(input, validationStatus)
 }
 
-function handleWarning(input, valid) {
+export function handleWarning(input, validationStatus) {
   const hasWarning = input.parentElement.querySelector(`.${styles['input-warning']}`)
   let warningText = ''
 
-  if (hasWarning && !valid.empty && !valid.invalidEmail) {
+  if (hasWarning && !validationStatus.empty && !validationStatus.invalidEmail) {
     hasWarning.remove()
     input.required = false
   }
 
-  if (valid.empty) {
+  if (validationStatus.empty) {
     warningText = 'This field is required'
-  } else if (valid.invalidEmail) {
+  } else if (validationStatus.invalidEmail) {
     warningText = 'Invalid email'
   }
 
@@ -84,13 +84,13 @@ function handleWarning(input, valid) {
   }
 }
 
-function inputValidations(input, validations) {
+export function inputValidations(input, validations) {
   const [notEmpty, email] = validations
   const isValid = {}
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
 
   if (notEmpty) {
-    isValid.empty = input.value.trim() !== '' ? false : true
+    isValid.empty = input.value.trim() === '' ? true : false
   }
 
   if (email) {
