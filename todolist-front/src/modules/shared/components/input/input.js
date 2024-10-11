@@ -1,11 +1,11 @@
 import styles from './input.module.css'
 
-export function Input({ labelText, placeholder, type, validations }) {
+export function Input({ labelText, name, placeholder, type, validations }) {
   const container = document.createElement('div')
   container.className = styles['input-container']
 
   const label = generateLabelElement({ labelText })
-  const input = generateInputElement({ placeholder, type, validations })
+  const input = generateInputElement({ placeholder, name, type, validations })
 
   container.appendChild(label)
   container.appendChild(input)
@@ -21,10 +21,11 @@ function generateLabelElement({ labelText }) {
   return label
 }
 
-function generateInputElement({ placeholder, type, validations = [] }) {
+function generateInputElement({ placeholder, name, type, validations = [] }) {
   const input = document.createElement('input')
   input.className = 'input'
   input.placeholder = placeholder
+  input.name = name
   input.type = type
   
   if (type === 'email') {

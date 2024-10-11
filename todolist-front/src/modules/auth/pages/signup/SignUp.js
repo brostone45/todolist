@@ -5,24 +5,28 @@ import { Title } from '../../components/title/title'
 const inputs = [
   {
     labelText: 'Name',
+    name: 'name',
     placeholder: 'John Doe',
     type: 'text',
     validations: ['notEmpty'],
   },
   {
     labelText: 'Email',
+    name: 'email',
     placeholder: 'your@email.com',
     type: 'email',
     validations: ['notEmpty', 'email'],
   },
   {
     labelText: 'Password',
+    name: 'password',
     placeholder: '********',
     type: 'password',
     validations: ['notEmpty'],
   },
   {
     labelText: 'Confirm Password',
+    name: 'confirmPassword',
     placeholder: '********',
     type: 'password',
     validations: ['notEmpty'],
