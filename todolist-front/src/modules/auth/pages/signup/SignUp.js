@@ -1,7 +1,8 @@
 import styles from './signup.module.css'
 import { Form } from '../../../shared/components/form/form'
 import { Title } from '../../components/title/title'
-import { handleWarning, inputValidations } from '../../../shared/components/input/input'
+import { inputValidations } from '../../../shared/components/input/input-validations'
+import { handleInputWarning } from '../../../shared/components/input-warning/input-warning'
 
 const inputs = [
   {
@@ -59,7 +60,7 @@ function submitForm({e, formInputs}) {
   inputs.forEach(input => {
     const validations = formInputs.find(formInput => formInput.name === input.name).validations
     const isValid = inputValidations(input, validations)
-    handleWarning(input, isValid)
+    handleInputWarning(input, isValid)
 
     if (!isValid.empty && !isValid.invalidEmail) {
       formValues[input.name] = input.value
@@ -67,6 +68,6 @@ function submitForm({e, formInputs}) {
   })
 
   if (Object.keys(formValues).length === formInputs.length) {
-    console.log('Form values:', formValues)
+    signUp(formValues)
   }
 }
