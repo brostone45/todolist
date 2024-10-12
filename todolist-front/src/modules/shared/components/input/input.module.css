@@ -31,13 +31,6 @@
   outline: 1px solid var(--primary-color);
 }
 
-.input-warning {
-  margin-top: 0.2rem;
-  font-size: 0.8rem;
-  color: var(--secondary-light-color);
-}
-
-/* .input-container:has(.input-warning) input { */
 input:invalid {
   border: 1px solid var(--secondary-light-color);
 }
