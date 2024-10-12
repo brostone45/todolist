@@ -1,3 +1,4 @@
+import { validateInput } from './input-validations'
 import styles from './input.module.css'
 
 export function Input({ labelText, name, placeholder, type, validations }) {
@@ -46,56 +47,4 @@ function generateInputElement({ placeholder, name, type, validations = [] }) {
   })
 
   return input
-}
-
-function generateWarningElement({ warningText }) {
-  const warning = document.createElement('p')
-  warning.className = styles['input-warning']
-  warning.textContent = warningText
-
-  return warning
-}
-
-function validateInput({ input, validations }) {
-  const validationStatus = inputValidations(input, validations)
-  
-  handleWarning(input, validationStatus)
-}
-
-export function handleWarning(input, validationStatus) {
-  const hasWarning = input.parentElement.querySelector(`.${styles['input-warning']}`)
-  let warningText = ''
-
-  if (hasWarning && !validationStatus.empty && !validationStatus.invalidEmail) {
-    hasWarning.remove()
-    input.required = false
-  }
-
-  if (validationStatus.empty) {
-    warningText = 'This field is required'
-  } else if (validationStatus.invalidEmail) {
-    warningText = 'Invalid email'
-  }
-
-  if (warningText !== '' && !hasWarning) {
-    const warning = generateWarningElement({ warningText })
-    input.parentElement.appendChild(warning)
-    input.required = true
-  }
-}
-
-export function inputValidations(input, validations) {
-  const [notEmpty, email] = validations
-  const isValid = {}
-  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
-
-  if (notEmpty) {
-    isValid.empty = input.value.trim() === '' ? true : false
-  }
-
-  if (email) {
-    isValid.invalidEmail = emailRegex.test(input.value) ? false : true
-  }
-
-  return isValid
 }
