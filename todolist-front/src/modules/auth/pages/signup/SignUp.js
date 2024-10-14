@@ -1,6 +1,7 @@
 import styles from './signup.module.css'
 import { Form } from '../../../shared/components/form/form'
 import { Title } from '../../components/title/title'
+import { signUp } from '../../../../services/signup'
 import { inputValidations } from '../../../shared/components/input/input-validations'
 import { handleInputWarning } from '../../../shared/components/input-warning/input-warning'
 
@@ -52,7 +53,7 @@ export function SignUp() {
   return container
 }
 
-function submitForm({e, formInputs}) {
+async function submitForm({e, formInputs}) {
   const formComponent = e.target
   const formValues = {}
 
@@ -68,6 +69,7 @@ function submitForm({e, formInputs}) {
   })
 
   if (Object.keys(formValues).length === formInputs.length) {
-    signUp(formValues)
+    const signupStatus = await signUp(formValues)
+    console.log(signupStatus)
   }
 }
