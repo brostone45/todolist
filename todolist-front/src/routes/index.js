@@ -6,12 +6,13 @@ export function router() {
   const currentRoute = getCurrentRoute()
 
   const route = routes.find(route => route.path === currentRoute)
-  
+
   if (!route) {
     location.pathname = '/'
   }
 
   const component = route.component()
+  app.innerHTML = ''
   app.appendChild(component)
 }
 
