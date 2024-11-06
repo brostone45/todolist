@@ -40,7 +40,10 @@ export function SignUp() {
   const container = document.createElement('section')
   container.classList.add(styles['sign-up'])
 
-  const titleSection = Title()
+  const titleSection = Title({
+    titleText: 'Create an account',
+    subtitleText: 'Create your account by entering your details below or sign up with your preferred social network.'
+  })
   const formComponent = Form({ inputs, buttonText: 'Sign Up', buttonType: 'submit' })
   formComponent.addEventListener('submit', (e) => {
     e.preventDefault()
@@ -53,7 +56,7 @@ export function SignUp() {
   return container
 }
 
-async function submitForm({e, formInputs}) {
+async function submitForm({ e, formInputs }) {
   const formComponent = e.target
   const formValues = {}
 
