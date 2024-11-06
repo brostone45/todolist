@@ -1,3 +1,8 @@
+import { Form } from '../../../shared/components/form/form'
+import { Title } from '../../components/title/title'
+
+import styles from './login.module.css'
+
 const inputs = [
   {
     labelText: 'Email',
@@ -19,8 +24,13 @@ export function Login() {
   const container = document.createElement('section')
   container.classList.add(styles['login'])
 
-  const titleSection = Title()
+  const titleSection = Title({
+    titleText: 'Log in to your account',
+    subtitleText: 'Enter your email and password to access your account.'
+  })
+
   const formComponent = Form({ inputs, buttonText: 'Login', buttonType: 'submit' })
+
   formComponent.addEventListener('submit', (e) => {
     e.preventDefault()
     submitForm({ e, formInputs: inputs })
