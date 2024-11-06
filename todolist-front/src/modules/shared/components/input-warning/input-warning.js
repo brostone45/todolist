@@ -1,4 +1,4 @@
-import styles from './input-warning.module.css'
+import styles from '../input/input.module.css'
 
 export function generateInputWarningElement({ warningText }) {
   const warning = document.createElement('p')
