@@ -4,6 +4,7 @@ import { Title } from '../../components/title/title'
 import { signUp } from '../../../../services/signup'
 import { inputValidations } from '../../../shared/components/input/input-validations'
 import { handleInputWarning } from '../../../shared/components/input-warning/input-warning'
+import { Navbar } from '../../../shared/components/navbar/navbar'
 
 const inputs = [
   {
@@ -61,10 +62,11 @@ export function SignUp({ app }) {
     submitForm({ e, formInputs: inputs })
   }, false)
 
-  container.appendChild(titleSection)
-  container.appendChild(formComponent)
+  container.append(titleSection, formComponent)
+  main.appendChild(container)
 
-  return container
+  app.innerHTML = ''
+  app.append(nav, container)
 }
 
 async function submitForm({ e, formInputs }) {

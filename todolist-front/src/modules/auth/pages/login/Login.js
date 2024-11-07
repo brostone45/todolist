@@ -1,4 +1,5 @@
 import { Form } from '../../../shared/components/form/form'
+import { Navbar } from '../../../shared/components/navbar/navbar'
 import { Title } from '../../components/title/title'
 
 import styles from './login.module.css'
@@ -47,9 +48,10 @@ export function Login({ app }) {
     submitForm({ e, formInputs: inputs })
   }, false)
 
-  container.appendChild(titleSection)
-  container.appendChild(formComponent)
+  container.append(titleSection, formComponent)
+  main.appendChild(container)
 
-  return container
+  app.innerHTML = ''
+  app.append(nav, main)
 }
 
