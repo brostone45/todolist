@@ -20,7 +20,18 @@ const inputs = [
   }
 ]
 
-export function Login() {
+const navbarLinks = [
+  {
+    text: 'Sign up',
+    href: 'signup'
+  }
+]
+
+export function Login({ app }) {
+  const nav = Navbar({ links: navbarLinks })
+
+  const main = document.createElement('main')
+
   const container = document.createElement('section')
   container.classList.add(styles['login'])
 

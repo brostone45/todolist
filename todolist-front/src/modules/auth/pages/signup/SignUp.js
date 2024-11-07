@@ -36,7 +36,18 @@ const inputs = [
   },
 ]
 
-export function SignUp() {
+const navbarLinks = [
+  {
+    text: 'Log in',
+    href: 'login'
+  }
+]
+
+export function SignUp({ app }) {
+  const nav = Navbar({ links: navbarLinks })
+
+  const main = document.createElement('main')
+
   const container = document.createElement('section')
   container.classList.add(styles['sign-up'])
 
