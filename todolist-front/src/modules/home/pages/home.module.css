@@ -1,0 +1,21 @@
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header h2 {
+  margin: 0 0 1.5rem;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+header p {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+header picture img {
+  width: 100px;
+  border-radius: 50%;
+}
