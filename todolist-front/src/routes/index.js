@@ -11,7 +11,7 @@ export function router() {
     location.pathname = '/'
   }
 
-  const component = route.page({ app })
+  route.page({ app })
 }
 
 function getCurrentRoute() {
