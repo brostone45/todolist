@@ -28,3 +28,40 @@ export function getCurrentYear() {
   return date.getFullYear()
 }
 
+export function getRageDate({ daysBeforeToday, daysAfterToday } = {}) {
+  const range = []
+  const daysNames = ['S', 'M', 'T', 'W', 'T', 'F', 'S']
+  const currentDate = new Date()
+
+  if (daysBeforeToday) {
+    for (let i = daysBeforeToday; i > 0; i--) {
+      const day = new Date()
+      day.setDate(currentDate.getDate() - i)
+
+      range.push({
+        dayNumber: day.getDate(),
+        dayName: daysNames[day.getDay()],
+      })
+    }
+  }
+
+  range.push({
+    dayNumber: currentDate.getDate(),
+    dayName: daysNames[currentDate.getDay()],
+  })
+
+  if (daysAfterToday) {
+    for (let i = 1; i <= daysAfterToday; i++) {
+      const day = new Date()
+      day.setDate(currentDate.getDate() + i)
+
+      range.push({
+        dayNumber: day.getDate(),
+        dayName: daysNames[day.getDay()],
+      })
+    }
+  }
+
+  return range
+}
+
