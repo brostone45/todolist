@@ -1,0 +1,38 @@
+.week {
+  display: flex;
+  gap: 1rem;
+  scroll-snap-type: x mandatory;
+  overflow-x: auto;
+}
+
+.day {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--gray-color);
+  border-radius: 1rem;
+  scroll-snap-align: center;
+}
+
+.day-name {
+  padding: .5rem 1rem;
+  font-size: 0.8rem;
+}
+
+.day-number {
+  padding: .5rem 1rem;
+  border-radius: .5rem .5rem 1rem 1rem;
+  background-color: var(--black-secondary);
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.current-day {
+  background-color: var(--primary-light-color);
+}
+
+
+.current-day .day-number {
+  background-color: var(--primary-color);
+}
