@@ -6,8 +6,8 @@ export function weekCalendar() {
   const weekSection = document.createElement('section')
   weekSection.classList.add('week-calendar')
 
-  const daysBeforeToday = 3
-  const daysAfterToday = 3
+  let daysBeforeToday = 3
+  let daysAfterToday = 3
 
   const weekContainer = document.createElement('div')
   weekContainer.classList.add(styles.week)
@@ -17,6 +17,43 @@ export function weekCalendar() {
   daysList.forEach(({ dayNumber, dayName }) => {
     const day = dayTemplate({ dayNumber, dayName, currentDay })
     weekContainer.appendChild(day)
+  })
+
+  weekContainer.addEventListener('scroll', (event) => {
+    const scrollLeft = event.target.scrollLeft
+    const scrollWidth = event.target.scrollWidth
+    console.log('scrollLeft', scrollLeft)
+    console.log('scrollWidth', scrollWidth)
+    console.log('event.target.clientWidth', event.target.clientWidth)
+
+    if (scrollLeft === 0) {
+      console.log('---scroll to left')
+      daysBeforeToday += 3
+
+      const newDaysList = getRageDate({ daysBeforeToday, daysAfterToday })
+      weekContainer.innerHTML = ''
+
+      newDaysList.forEach(({ dayNumber, dayName }) => {
+        const day = dayTemplate({ dayNumber, dayName, currentDay })
+        weekContainer.appendChild(day)
+      })
+
+      console.log('weekContainer.scrollWidth - scrollWidth', weekContainer.scrollWidth - scrollWidth)
+      weekContainer.scrollLeft = weekContainer.scrollWidth - scrollWidth
+    }
+
+    if ((scrollLeft + event.target.clientWidth) + 15 >= scrollWidth) {
+      console.log('scroll to right')
+      daysAfterToday += 3
+
+      const newDaysList = getRageDate({ daysBeforeToday, daysAfterToday })
+      weekContainer.innerHTML = ''
+
+      newDaysList.forEach(({ dayNumber, dayName }) => {
+        const day = dayTemplate({ dayNumber, dayName, currentDay })
+        weekContainer.appendChild(day)
+      })
+    }
   })
 
   weekSection.appendChild(weekContainer)
