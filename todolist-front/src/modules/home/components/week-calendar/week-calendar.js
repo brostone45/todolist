@@ -6,51 +6,45 @@ export function weekCalendar() {
   const weekSection = document.createElement('section')
   weekSection.classList.add('week-calendar')
 
-  let daysBeforeToday = 3
-  let daysAfterToday = 3
+  let daysBeforeToday = 6
+  let daysAfterToday = 6
 
   const weekContainer = document.createElement('div')
   weekContainer.classList.add(styles.week)
 
   const daysList = getRageDate({ daysBeforeToday, daysAfterToday })
 
-  daysList.forEach(({ dayNumber, dayName }) => {
-    const day = dayTemplate({ dayNumber, dayName, currentDay })
+  daysList.forEach((newDay) => {
+    const day = dayTemplate(newDay)
     weekContainer.appendChild(day)
   })
 
   weekContainer.addEventListener('scroll', (event) => {
     const scrollLeft = event.target.scrollLeft
     const scrollWidth = event.target.scrollWidth
-    console.log('scrollLeft', scrollLeft)
-    console.log('scrollWidth', scrollWidth)
-    console.log('event.target.clientWidth', event.target.clientWidth)
 
     if (scrollLeft === 0) {
-      console.log('---scroll to left')
       daysBeforeToday += 3
 
       const newDaysList = getRageDate({ daysBeforeToday, daysAfterToday })
       weekContainer.innerHTML = ''
 
-      newDaysList.forEach(({ dayNumber, dayName }) => {
-        const day = dayTemplate({ dayNumber, dayName, currentDay })
+      newDaysList.forEach((newDay) => {
+        const day = dayTemplate(newDay)
         weekContainer.appendChild(day)
       })
 
-      console.log('weekContainer.scrollWidth - scrollWidth', weekContainer.scrollWidth - scrollWidth)
       weekContainer.scrollLeft = weekContainer.scrollWidth - scrollWidth
     }
 
     if ((scrollLeft + event.target.clientWidth) + 15 >= scrollWidth) {
-      console.log('scroll to right')
       daysAfterToday += 3
 
       const newDaysList = getRageDate({ daysBeforeToday, daysAfterToday })
       weekContainer.innerHTML = ''
 
-      newDaysList.forEach(({ dayNumber, dayName }) => {
-        const day = dayTemplate({ dayNumber, dayName, currentDay })
+      newDaysList.forEach((newDay) => {
+        const day = dayTemplate(newDay)
         weekContainer.appendChild(day)
       })
     }
@@ -69,11 +63,11 @@ export function weekCalendar() {
   return weekSection
 }
 
-export function dayTemplate({ dayNumber, dayName, currentDay }) {
+export function dayTemplate({ dayNumber, dayName, isCurrentDay }) {
   const dayContainer = document.createElement('div')
   dayContainer.classList.add(styles.day)
 
-  if (currentDay === dayNumber) {
+  if (isCurrentDay) {
     dayContainer.classList.add(styles['current-day'])
   }
 
