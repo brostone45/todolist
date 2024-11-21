@@ -30,7 +30,7 @@ export function getCurrentYear() {
 
 export function getRageDate({ daysBeforeToday, daysAfterToday, includeCurrentDay = true } = {}) {
   const range = []
-  const daysNames = ['S', 'M', 'T', 'W', 'T', 'F', 'S']
+  const daysNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
   const currentDate = new Date()
 
   if (daysBeforeToday) {
@@ -41,6 +41,7 @@ export function getRageDate({ daysBeforeToday, daysAfterToday, includeCurrentDay
       range.push({
         dayNumber: day.getDate(),
         dayName: daysNames[day.getDay()],
+        isCurrentDay: false,
       })
     }
   }
@@ -61,6 +62,7 @@ export function getRageDate({ daysBeforeToday, daysAfterToday, includeCurrentDay
       range.push({
         dayNumber: day.getDate(),
         dayName: daysNames[day.getDay()],
+        isCurrentDay: false,
       })
     }
   }
