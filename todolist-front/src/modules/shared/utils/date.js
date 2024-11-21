@@ -28,7 +28,7 @@ export function getCurrentYear() {
   return date.getFullYear()
 }
 
-export function getRageDate({ daysBeforeToday, daysAfterToday } = {}) {
+export function getRageDate({ daysBeforeToday, daysAfterToday, includeCurrentDay = true } = {}) {
   const range = []
   const daysNames = ['S', 'M', 'T', 'W', 'T', 'F', 'S']
   const currentDate = new Date()
@@ -45,10 +45,13 @@ export function getRageDate({ daysBeforeToday, daysAfterToday } = {}) {
     }
   }
 
-  range.push({
-    dayNumber: currentDate.getDate(),
-    dayName: daysNames[currentDate.getDay()],
-  })
+  if (includeCurrentDay) {
+    range.push({
+      dayNumber: currentDate.getDate(),
+      dayName: daysNames[currentDate.getDay()],
+      isCurrentDay: true,
+    })
+  }
 
   if (daysAfterToday) {
     for (let i = 1; i <= daysAfterToday; i++) {
