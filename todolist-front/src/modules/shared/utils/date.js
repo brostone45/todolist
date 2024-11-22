@@ -12,9 +12,8 @@ export function getFormattedDate() {
 }
 
 export function getCurrentDay() {
-  const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
   const date = new Date()
-  return days[date.getDay()]
+  return fullDays[date.getDay()]
 }
 
 export function getCurrentDayNumber() {
@@ -23,9 +22,8 @@ export function getCurrentDayNumber() {
 }
 
 export function getCurrentMoth() {
-  const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
   const date = new Date()
-  return months[date.getMonth()]
+  return fullMonths[date.getMonth()]
 }
 
 export function getCurrentYear() {
@@ -35,7 +33,6 @@ export function getCurrentYear() {
 
 export function getRageDate({ daysBeforeToday, daysAfterToday, includeCurrentDay = true } = {}) {
   const range = []
-  const daysNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
   const currentDate = new Date()
 
   if (daysBeforeToday) {
@@ -54,7 +51,7 @@ export function getRageDate({ daysBeforeToday, daysAfterToday, includeCurrentDay
   if (includeCurrentDay) {
     range.push({
       dayNumber: currentDate.getDate(),
-      dayName: daysNames[currentDate.getDay()],
+      dayName: shortDays[currentDate.getDay()],
       isCurrentDay: true,
     })
   }
