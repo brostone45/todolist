@@ -1,14 +1,58 @@
 import styles from './week-calendar.module.css'
-import { getCurrentDayNumber, getRageDate } from "../../../shared/utils/date"
+import { getCurrentDayNumber, getRageDate, getRangeBeforeADay } from "../../../shared/utils/date"
+
+let daysBeforeToday = 6
+let daysAfterToday = 6
 
 export function weekCalendar() {
-  const currentDay = getCurrentDayNumber()
   const weekSection = document.createElement('section')
   weekSection.classList.add('week-calendar')
 
-  let daysBeforeToday = 6
-  let daysAfterToday = 6
+  const dayCalendar = dayCalendarTemplate()
 
+  dayCalendar.addEventListener('scroll', (event) => {
+    const scrollLeft = event.target.scrollLeft
+    const scrollWidth = event.target.scrollWidth
+
+    if (scrollLeft === 0) {
+      const dateBefore = new Date()
+      dateBefore.setDate(dateBefore.getDate() - daysBeforeToday)
+
+      daysBeforeToday += 6
+
+      const newDaysList = getRangeBeforeADay({
+        daysBefore: 6, date: dateBefore
+      })
+      console.log(newDaysList)
+
+      newDaysList.reverse()
+      newDaysList.forEach((newDay) => {
+        const day = dayTemplate(newDay)
+        dayCalendar.prepend(day)
+      })
+
+      dayCalendar.scrollLeft = dayCalendar.scrollWidth - scrollWidth
+    }
+
+    //if ((scrollLeft + event.target.clientWidth) + 15 >= scrollWidth) {
+    //  daysAfterToday += 3
+    //
+    //  const newDaysList = getRageDate({ daysBeforeToday, daysAfterToday })
+    //  weekContainer.innerHTML = ''
+    //
+    //  newDaysList.forEach((newDay) => {
+    //    const day = dayTemplate(newDay)
+    //    weekContainer.appendChild(day)
+    //  })
+    //}
+  })
+
+  weekSection.appendChild(dayCalendar)
+
+  return weekSection
+}
+
+export function dayCalendarTemplate() {
   const weekContainer = document.createElement('div')
   weekContainer.classList.add(styles.week)
 
@@ -19,48 +63,21 @@ export function weekCalendar() {
     weekContainer.appendChild(day)
   })
 
-  weekContainer.addEventListener('scroll', (event) => {
-    const scrollLeft = event.target.scrollLeft
-    const scrollWidth = event.target.scrollWidth
-
-    if (scrollLeft === 0) {
-      daysBeforeToday += 3
-
-      const newDaysList = getRageDate({ daysBeforeToday, daysAfterToday })
-      weekContainer.innerHTML = ''
-
-      newDaysList.forEach((newDay) => {
-        const day = dayTemplate(newDay)
-        weekContainer.appendChild(day)
-      })
-
-      weekContainer.scrollLeft = weekContainer.scrollWidth - scrollWidth
-    }
-
-    if ((scrollLeft + event.target.clientWidth) + 15 >= scrollWidth) {
-      daysAfterToday += 3
-
-      const newDaysList = getRageDate({ daysBeforeToday, daysAfterToday })
-      weekContainer.innerHTML = ''
-
-      newDaysList.forEach((newDay) => {
-        const day = dayTemplate(newDay)
-        weekContainer.appendChild(day)
-      })
-    }
-  })
-
-  weekSection.appendChild(weekContainer)
-
   // scroll to current day
-  setTimeout(() => {
+  requestAnimationFrame(() => {
     const currentDayElement = weekContainer.querySelector(`.${styles['current-day']}`)
     if (currentDayElement) {
       currentDayElement.scrollIntoView({ behavior: 'smooth', inline: 'center' })
     }
-  }, 0)
+  })
 
-  return weekSection
+  return weekContainer
+}
+
+export function prependNewDays({ weekContainer }) {
+}
+
+export function appendNewDays() {
 }
 
 export function dayTemplate({ dayNumber, dayName, isCurrentDay }) {
