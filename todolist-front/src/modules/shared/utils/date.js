@@ -36,16 +36,8 @@ export function getRageDate({ daysBeforeToday, daysAfterToday, includeCurrentDay
   const currentDate = new Date()
 
   if (daysBeforeToday) {
-    for (let i = daysBeforeToday; i > 0; i--) {
-      const day = new Date()
-      day.setDate(currentDate.getDate() - i)
-
-      range.push({
-        dayNumber: day.getDate(),
-        dayName: daysNames[day.getDay()],
-        isCurrentDay: false,
-      })
-    }
+    const rangeBefore = getRangeBeforeADay({ daysBefore: daysBeforeToday, date: currentDate })
+    range.push(...rangeBefore)
   }
 
   if (includeCurrentDay) {
@@ -57,18 +49,44 @@ export function getRageDate({ daysBeforeToday, daysAfterToday, includeCurrentDay
   }
 
   if (daysAfterToday) {
-    for (let i = 1; i <= daysAfterToday; i++) {
-      const day = new Date()
-      day.setDate(currentDate.getDate() + i)
-
-      range.push({
-        dayNumber: day.getDate(),
-        dayName: daysNames[day.getDay()],
-        isCurrentDay: false,
-      })
-    }
+    const rangeAfter = getRangeAfterADay({ daysAfter: daysAfterToday, date: currentDate })
+    range.push(...rangeAfter)
   }
 
   return range
 }
 
+export function getRangeBeforeADay({ daysBefore, date }) {
+  const range = []
+
+  for (let i = daysBefore; i > 0; i--) {
+    const day = new Date()
+    day.setDate(date.getDate() - i)
+    console.log(day.getDate())
+
+    range.push({
+      dayNumber: day.getDate(),
+      dayName: shortDays[day.getDay()],
+      isCurrentDay: false,
+    })
+  }
+
+  return range
+}
+
+export function getRangeAfterADay({ daysAfter, date }) {
+  const range = []
+
+  for (let i = 1; i <= daysAfter; i++) {
+    const day = new Date()
+    day.setDate(date.getDate() + i)
+
+    range.push({
+      dayNumber: day.getDate(),
+      dayName: shortDays[day.getDay()],
+      isCurrentDay: false,
+    })
+  }
+
+  return range
+}
