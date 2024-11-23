@@ -60,9 +60,8 @@ export function getRangeBeforeADay({ daysBefore, date }) {
   const range = []
 
   for (let i = daysBefore; i > 0; i--) {
-    const day = new Date()
-    day.setDate(date.getDate() - i)
-    console.log(day.getDate())
+    const day = new Date(date.getTime())
+    day.setDate(day.getDate() - i)
 
     range.push({
       dayNumber: day.getDate(),
@@ -78,8 +77,8 @@ export function getRangeAfterADay({ daysAfter, date }) {
   const range = []
 
   for (let i = 1; i <= daysAfter; i++) {
-    const day = new Date()
-    day.setDate(date.getDate() + i)
+    const day = new Date(date.getTime())
+    day.setDate(day.getDate() + i)
 
     range.push({
       dayNumber: day.getDate(),
