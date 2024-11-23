@@ -1,5 +1,5 @@
 import styles from './week-calendar.module.css'
-import { getCurrentDayNumber, getRageDate, getRangeBeforeADay } from "../../../shared/utils/date"
+import { getCurrentDayNumber, getRageDate, getRangeAfterADay, getRangeBeforeADay } from "../../../shared/utils/date"
 
 let daysBeforeToday = 6
 let daysAfterToday = 6
@@ -23,7 +23,6 @@ export function weekCalendar() {
       const newDaysList = getRangeBeforeADay({
         daysBefore: 6, date: dateBefore
       })
-      console.log(newDaysList)
 
       newDaysList.reverse()
       newDaysList.forEach((newDay) => {
@@ -34,17 +33,21 @@ export function weekCalendar() {
       dayCalendar.scrollLeft = dayCalendar.scrollWidth - scrollWidth
     }
 
-    //if ((scrollLeft + event.target.clientWidth) + 15 >= scrollWidth) {
-    //  daysAfterToday += 3
-    //
-    //  const newDaysList = getRageDate({ daysBeforeToday, daysAfterToday })
-    //  weekContainer.innerHTML = ''
-    //
-    //  newDaysList.forEach((newDay) => {
-    //    const day = dayTemplate(newDay)
-    //    weekContainer.appendChild(day)
-    //  })
-    //}
+    if ((scrollLeft + event.target.clientWidth) + 15 >= scrollWidth) {
+      const dateAfter = new Date()
+      dateAfter.setDate(dateAfter.getDate() + daysAfterToday)
+
+      daysAfterToday += 6
+
+      const newDaysList = getRangeAfterADay({
+        daysAfter: 6, date: dateAfter
+      })
+
+      newDaysList.forEach((newDay) => {
+        const day = dayTemplate(newDay)
+        dayCalendar.appendChild(day)
+      })
+    }
   })
 
   weekSection.appendChild(dayCalendar)
