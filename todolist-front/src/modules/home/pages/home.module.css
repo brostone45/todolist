@@ -1,1 +1,25 @@
+.days-tasks {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  background: var(--black-light-color);
+  border-radius: 1rem;
+}
 
+.days-tasks h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.days-tasks .add-task {
+  background-color: transparent;
+  border: none;
+  color: var(--primary-color);
+  cursor: pointer;
+}
+
+.days-tasks .add-task:hover {
+  color: var(--primary-light-color);
+}
