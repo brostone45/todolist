@@ -1,5 +1,6 @@
 .week {
   display: flex;
+  margin-bottom: 1.5rem;
   gap: 1rem;
   /*scroll-snap-type: x mandatory;*/
   overflow-x: auto;
